@@ -1,76 +1,84 @@
-import CustomDump
-import SwiftUI
+End
+Void
+Delete
+stop
+end
+terminate
+end
 
-/// A view helper that transforms a ``Store`` into a ``ViewStore`` so that its state can be observed
-/// by a view builder.
-///
-/// This helper is an alternative to observing the view store manually on your view, which requires
-/// the boilerplate of a custom initializer.
-///
-/// > Important: It is important to properly leverage the `observe` argument in order to observe
-/// only the state that your view needs to do its job. See the "Performance" section below for more
-/// information.
-///
-/// For example, the following view, which manually observes the store it is handed by constructing
-/// a view store in its initializer:
-///
-/// ```swift
-/// struct ProfileView: View {
-///   let store: StoreOf<Profile>
-///   @ObservedObject var viewStore: ViewStoreOf<Profile>
-///
-///   init(store: StoreOf<Profile>) {
-///     self.store = store
-///     self.viewStore = ViewStore(store, observe: { $0 })
-///   }
-///
-///   var body: some View {
-///     Text("\(self.viewStore.username)")
-///     // ...
-///   }
-/// }
-/// ```
-///
-/// …can be written more simply using `WithViewStore`:
-///
-/// ```swift
-/// struct ProfileView: View {
-///   let store: StoreOf<Profile>
-///
-///   var body: some View {
-///     WithViewStore(self.store, observe: { $0 }) { viewStore in
-///       Text("\(viewStore.username)")
-///       // ...
-///     }
-///   }
-/// }
-/// ```
-///
-/// There may be times where the slightly more verbose style of observing a store is preferred
-/// instead of using ``WithViewStore``:
-///
-///   1. When ``WithViewStore`` wraps complex views the Swift compiler can quickly become bogged
-///      down, leading to degraded compiler performance and diagnostics. If you are experiencing
-///      such instability you should consider manually setting up observation with an
-///      `@ObservedObject` property as described above.
-///
-///   2. Sometimes you may want to observe the state in a store in a context that is not a view
-///      builder. In such cases ``WithViewStore`` will not work since it is intended only for
-///      SwiftUI views.
-///
-///      An example of this is interfacing with SwiftUI's `App` protocol, which uses a separate
-///      `@SceneBuilder` instead of `@ViewBuilder`. In this case you must use an `@ObservedObject`:
-///
-///      ```swift
-///      @main
-///      struct MyApp: App {
-///        let store = StoreOf<AppFeature>(/* ... */)
-///        @ObservedObject var viewStore: ViewStore<SceneState, CommandAction>
-///
-///        struct SceneState: Equatable {
-///          // ...
-///          init(state: AppFeature.State) {
-///            // ...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ///          }
 ///        }
 ///
