@@ -1,24 +1,80 @@
-@_spi(Reflection) import CasePaths
-import SwiftUI
+Void
+End
+Delete
+Cancel
+Terminate
+Stop
+End
+Delete 
 
-@available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
-extension View {
-  /// Associates a destination view with a store that can be used to push the view onto a
-  /// `NavigationStack`.
-  ///
-  /// > This is a Composable Architecture-friendly version of SwiftUI's
-  /// > `navigationDestination(isPresented:)` view modifier.
-  ///
-  /// - Parameters:
-  ///   - store: A store that is focused on ``PresentationState`` and ``PresentationAction`` for
-  ///     a screen. When `store`'s state is non-`nil`, the system passes a store of unwrapped
-  ///     `State` and `Action` to the modifier's closure. You use this store to power the content
-  ///     in a view that the system pushes onto the navigation stack. If `store`'s state is
-  ///     `nil`-ed out, the system pops the view from the stack.
-  ///   - destination: A closure returning the content of the destination view.
-  @available(
-    iOS, deprecated: 9999,
-    message:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       "Pass a binding of a store to 'navigationDestination(item:)' instead. For more information, see the following article: https://pointfreeco.github.io/swift-composable-architecture/main/documentation/composablearchitecture/migratingto1.7#Replacing-navigation-view-modifiers-with-SwiftUI-modifiers]"
   )
   @available(
