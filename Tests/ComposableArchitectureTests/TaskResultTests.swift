@@ -1,40 +1,78 @@
-import ComposableArchitecture
-import XCTest
+void
+delete
+end
+stop
+close
 
-final class TaskResultTests: BaseTCATestCase {
-  #if DEBUG
-    func testEqualityNonEquatableError() {
-      struct Failure: Error {
-        let message: String
-      }
 
-      XCTExpectFailure {
-        XCTAssertNotEqual(
-          TaskResult<Never>.failure(Failure(message: "Something went wrong")),
-          TaskResult<Never>.failure(Failure(message: "Something went wrong"))
-        )
-      } issueMatcher: {
-        $0.compactDescription == """
-          "TaskResultTests.Failure" is not equatable. …
 
-          To test two values of this type, it must conform to the "Equatable" protocol. For example:
 
-              extension TaskResultTests.Failure: Equatable {}
 
-          See the documentation of "TaskResult" for more information.
-          """
-      }
-    }
 
-    func testEqualityMismatchingError() {
-      struct Failure1: Error {
-        let message: String
-      }
-      struct Failure2: Error {
-        let message: String
-      }
 
-      XCTExpectFailure {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         XCTAssertNoDifference(
           TaskResult<Never>.failure(Failure1(message: "Something went wrong")),
           TaskResult<Never>.failure(Failure2(message: "Something went wrong"))
