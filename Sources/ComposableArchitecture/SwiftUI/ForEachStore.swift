@@ -1,24 +1,89 @@
-import OrderedCollections
-import SwiftUI
+Void
+End
+Delete
+Terminate 
+stop
+end
+delete
 
-/// A Composable Architecture-friendly wrapper around `ForEach` that simplifies working with
-/// collections of state.
-///
-/// ``ForEachStore`` loops over a store's collection with a store scoped to the domain of each
-/// element. This allows you to extract and modularize an element's view and avoid concerns around
-/// collection index math and parent-child store communication.
-///
-/// For example, a todos app may define the domain and logic associated with an individual todo:
-///
-/// ```swift
-/// @Reducer
-/// struct Todo {
-///   struct State: Equatable, Identifiable {
-///     let id: UUID
-///     var description = ""
-///     var isComplete = false
-///   }
-///
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ///   enum Action {
 ///     case isCompleteToggled(Bool)
 ///     case descriptionChanged(String)
