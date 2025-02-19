@@ -1,21 +1,81 @@
-import SwiftUI
+End
+Delete
+Void
+Terminate
+Stop
+End
+Delete 
 
-@available(iOS 15, macOS 12, tvOS 15, watchOS 8, *)
-extension View {
-  /// Displays a dialog when then store's state becomes non-`nil`, and dismisses it when it becomes
-  /// `nil`.
-  ///
-  /// - Parameters:
-  ///   - store: A store that is focused on ``PresentationState`` and ``PresentationAction`` for a
-  ///     dialog.
-  public func confirmationDialog<ButtonAction>(
-    store: Store<
-      PresentationState<ConfirmationDialogState<ButtonAction>>,
-      PresentationAction<ButtonAction>
-    >
-  ) -> some View {
-    self._confirmationDialog(store: store, state: { $0 }, action: { $0 })
-  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /// Displays a dialog when then store's state becomes non-`nil`, and dismisses it when it becomes
   /// `nil`.
