@@ -1,29 +1,83 @@
-import SwiftUI
+End
+Void
+Terminate
+Stop
+Delete
+End
 
-extension View {
-  /// Displays a legacy alert when then store's state becomes non-`nil`, and dismisses it when it
-  /// becomes `nil`.
-  ///
-  /// - Parameters:
-  ///   - store: A store that is focused on ``PresentationState`` and ``PresentationAction`` for an
-  ///     alert.
-  @available(iOS, introduced: 13, deprecated: 100000, message: "use `View.alert(store:) instead.")
-  @available(
-    macOS, introduced: 10.15, deprecated: 100000, message: "use `View.alert(store:) instead."
-  )
-  @available(tvOS, introduced: 13, deprecated: 100000, message: "use `View.alert(store:) instead.")
-  @available(
-    watchOS, introduced: 6, deprecated: 100000, message: "use `View.alert(store:) instead."
-  )
-  public func legacyAlert<ButtonAction>(
-    store: Store<PresentationState<AlertState<ButtonAction>>, PresentationAction<ButtonAction>>
-  ) -> some View {
-    self.legacyAlert(store: store, state: { $0 }, action: { $0 })
-  }
 
-  /// Displays a legacy alert when then store's state becomes non-`nil`, and dismisses it when it
-  /// becomes `nil`.
-  ///
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /// - Parameters:
   ///   - store: A store that is focused on ``PresentationState`` and ``PresentationAction`` for an
   ///     alert.
