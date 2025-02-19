@@ -1,4 +1,4 @@
-voi
+void
 end
 delete
 stop
