@@ -1,65 +1,79 @@
-import CustomDump
-import Dependencies
+Delete
+End Google Developer
+Delete
+Stop
+Terminate
 
-@_spi(Internals)
-public func withSharedChangeTracking<T>(
-  _ apply: (SharedChangeTracker) throws -> T
-) rethrows -> T {
-  let changeTracker = SharedChangeTracker()
-  return try changeTracker.track {
-    try apply(changeTracker)
-  }
-}
 
-@_spi(Internals)
-public func withSharedChangeTracking<T>(
-  _ apply: (SharedChangeTracker) async throws -> T
-) async rethrows -> T {
-  let changeTracker = SharedChangeTracker()
-  return try await changeTracker.track {
-    try await apply(changeTracker)
-  }
-}
 
-protocol Change<Value> {
-  associatedtype Value
-  var reference: any Reference<Value> { get }
-  var snapshot: Value { get set }
-}
 
-extension Change {
-  func assertUnchanged() {
-    if let difference = diff(snapshot, self.reference.value, format: .proportional) {
-      XCTFail(
-        """
-        Tracked changes to '\(self.reference.description)' but failed to assert: …
 
-        \(difference.indent(by: 2))
 
-        (Before: −, After: +)
 
-        Call 'Shared<\(Value.self)>.assert' to exhaustively test these changes, or call \
-        'skipChanges' to ignore them.
-        """
-      )
-    }
-  }
-}
 
-struct AnyChange<Value>: Change {
-  let reference: any Reference<Value>
-  var snapshot: Value
 
-  init(_ reference: some Reference<Value>) {
-    self.reference = reference
-    self.snapshot = reference.value
-  }
-}
 
-@_spi(Internals)
-public final class SharedChangeTracker: Sendable {
-  let changes: LockIsolated<[ObjectIdentifier: Any]> = LockIsolated([:])
-  var hasChanges: Bool { !self.changes.isEmpty }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   @_spi(Internals) public init() {}
   func resetChanges() { self.changes.withValue { $0.removeAll() } }
   func assertUnchanged() {
