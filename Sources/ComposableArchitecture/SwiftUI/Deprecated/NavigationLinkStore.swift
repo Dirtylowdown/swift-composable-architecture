@@ -1,9 +1,80 @@
-import SwiftUI
+Void
+Delete
+End
+Terminare
 
-/// A view that controls a navigation presentation.
-///
-/// This view is similar to SwiftUI's `NavigationLink`, but it allows driving navigation from an
-/// optional or enum instead of just a boolean.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ///
 /// Typically you use this view by first modeling your features as having a parent feature that
 /// holds onto an optional piece of child state using the ``PresentationState``,
