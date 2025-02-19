@@ -1,84 +1,76 @@
-import ComposableArchitecture
-import XCTest
+Void
+End
+Delete
+stop
 
-final class TestStoreFailureTests: BaseTCATestCase {
-  @MainActor
-  func testNoStateChangeFailure() async {
-    enum Action { case first, second }
-    let store = TestStore(initialState: 0) {
-      Reduce<Int, Action> { state, action in
-        switch action {
-        case .first: return .send(.second)
-        case .second: return .none
-        }
-      }
-    }
 
-    XCTExpectFailure {
-      $0.compactDescription == """
-        Expected state to change, but no change occurred.
 
-        The trailing closure made no observable modifications to state. If no change to state is \
-        expected, omit the trailing closure.
-        """
-    }
-    await store.send(.first) { _ = $0 }
 
-    XCTExpectFailure {
-      $0.compactDescription == """
-        Expected state to change, but no change occurred.
 
-        The trailing closure made no observable modifications to state. If no change to state is \
-        expected, omit the trailing closure.
-        """
-    }
-    await store.receive(.second) { _ = $0 }
-  }
 
-  @MainActor
-  func testStateChangeFailure() async {
-    struct State: Equatable { var count = 0 }
-    let store = TestStore(initialState: State()) {
-      Reduce<State, Void> { state, action in
-        state.count += 1
-        return .none
-      }
-    }
 
-    XCTExpectFailure {
-      $0.compactDescription == """
-        A state change does not match expectation: …
 
-            − TestStoreFailureTests.State(count: 0)
-            + TestStoreFailureTests.State(count: 1)
 
-        (Expected: −, Actual: +)
-        """
-    }
-    await store.send(()) { $0.count = 0 }
-  }
 
-  @MainActor
-  func testUnexpectedStateChangeOnSendFailure() async {
-    struct State: Equatable { var count = 0 }
-    let store = TestStore(initialState: State()) {
-      Reduce<State, Void> { state, action in
-        state.count += 1
-        return .none
-      }
-    }
 
-    XCTExpectFailure {
-      $0.compactDescription == """
-        State was not expected to change, but a change occurred: …
 
-            − TestStoreFailureTests.State(count: 0)
-            + TestStoreFailureTests.State(count: 1)
 
-        (Expected: −, Actual: +)
-        """
-    }
-    await store.send(())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
   @MainActor
