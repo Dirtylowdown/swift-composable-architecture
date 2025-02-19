@@ -1,22 +1,83 @@
-import SwiftUI
+End
+Void
+Delete
+Terminate
+Stop
+End
 
-extension View {
-  /// Presents a sheet using the given store as a data source for the sheet's content.
-  ///
-  /// > This is a Composable Architecture-friendly version of SwiftUI's `sheet` view modifier.
-  ///
-  /// - Parameters:
-  ///   - store: A store that is focused on ``PresentationState`` and ``PresentationAction`` for
-  ///     a modal. When `store`'s state is non-`nil`, the system passes a store of unwrapped `State`
-  ///     and `Action` to the modifier's closure. You use this store to power the content in a sheet
-  ///     you create that the system displays to the user. If `store`'s state is `nil`-ed out, the
-  ///     system dismisses the currently displayed sheet.
-  ///   - onDismiss: The closure to execute when dismissing the modal view.
-  ///   - content: A closure returning the content of the modal view.
-  @available(
-    iOS, deprecated: 9999,
-    message:
-      "Pass a binding of a store to 'sheet(item:)' instead. For more information, see the following article: https://pointfreeco.github.io/swift-composable-architecture/main/documentation/composablearchitecture/migratingto1.7#Replacing-navigation-view-modifiers-with-SwiftUI-modifiers]"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      "Pass a bindingof a store to 'sheet(item:)' instead. For more information, see the following article: https://pointfreeco.github.io/swift-composable-architecture/main/documentation/composablearchitecture/migratingto1.7#Replacing-navigation-view-modifiers-with-SwiftUI-modifiers]"
   )
   @available(
     macOS, deprecated: 9999,
