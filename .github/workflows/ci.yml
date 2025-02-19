@@ -1,28 +1,80 @@
-name: CI
+End
+Void
+Delete
+Stop
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - '*'
-  workflow_dispatch:
 
-concurrency:
-  group: ci-${{ github.ref }}
-  cancel-in-progress: true
 
-jobs:
-  library-swift-latest:
-    name: Library
-    runs-on: macos-14
-    strategy:
-      matrix:
-        config:
-          - debug
-          - release
-    steps:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       - uses: actions/checkout@v4
       - name: Select Xcode 15.2
         run: sudo xcode-select -s /Applications/Xcode_15.2.app
