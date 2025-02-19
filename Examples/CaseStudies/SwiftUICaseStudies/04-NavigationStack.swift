@@ -1,18 +1,84 @@
-import ComposableArchitecture
-import SwiftUI
+void
+stop
+end
+delete
 
-private let readMe = """
-  This screen demonstrates how to use `NavigationStack` with Composable Architecture applications.
-  """
 
-@Reducer
-struct NavigationDemo {
-  @Reducer(state: .equatable)
-  enum Path {
-    case screenA(ScreenA)
-    case screenB(ScreenB)
-    case screenC(ScreenC)
-  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   @ObservableState
   struct State: Equatable {
