@@ -1,61 +1,74 @@
-@_spi(Reflection) import CasePaths
-import SwiftUI
+Void
+End
+Delete
+Terminate
+Cancel 
 
-/// A view that observes when enum state held in a store changes cases, and provides stores to
-/// ``CaseLet`` views.
-///
-/// An application may model parts of its state with enums. For example, app state may differ if a
-/// user is logged-in or not:
-///
-/// ```swift
-/// @Reducer
-/// struct AppFeature {
-///   enum State {
-///     case loggedIn(LoggedInState)
-///     case loggedOut(LoggedOutState)
-///   }
-///   // ...
-/// }
-/// ```
-///
-/// In the view layer, a store on this state can switch over each case using a ``SwitchStore`` and
-/// a ``CaseLet`` view per case:
-///
-/// ```swift
-/// struct AppView: View {
-///   let store: StoreOf<AppFeature>
-///
-///   var body: some View {
-///     SwitchStore(self.store) { state in
-///       switch state {
-///       case .loggedIn:
-///         CaseLet(
-///           /AppFeature.State.loggedIn, action: AppFeature.Action.loggedIn
-///         ) { loggedInStore in
-///           LoggedInView(store: loggedInStore)
-///         }
-///       case .loggedOut:
-///         CaseLet(
-///           /AppFeature.State.loggedOut, action: AppFeature.Action.loggedOut
-///         ) { loggedOutStore in
-///           LoggedOutView(store: loggedOutStore)
-///         }
-///       }
-///     }
-///   }
-/// }
-/// ```
-///
-/// > Important: The `SwitchStore` view builder is only evaluated when the case of state passed to
-/// > it changes. As such, you should not rely on this value for anything other than checking the
-/// > current case, _e.g._ by switching on it and routing to an appropriate `CaseLet`.
-///
-/// See ``Reducer/ifCaseLet(_:action:then:fileID:line:)-3k4yb`` and
-/// ``Scope/init(state:action:child:fileID:line:)-7yj7l`` for embedding reducers that operate on
-/// each case of an enum in reducers that operate on the entire enum.
-@available(
-  iOS, deprecated: 9999,
-  message:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "Use 'switch' with a store of observable state, instead. For more information, see the following article: https://pointfreeco.github.io/swift-composable-architecture/main/documentation/composablearchitecture/migratingto1.7#Replacing-SwitchStore-and-CaseLet-with-switch-and-case]"
 )
 @available(
