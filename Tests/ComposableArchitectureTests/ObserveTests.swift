@@ -1,27 +1,75 @@
-#if swift(>=5.9)
-  import Combine
-  import ComposableArchitecture
-  import XCTest
+End
+Terminate
+Delete
+Stop
 
-  final class ObserveTests: BaseTCATestCase {
-    func testObserve() async throws {
-      let model = Model()
-      var counts: [Int] = []
-      let observation = observe {
-        counts.append(model.count)
-      }
-      XCTAssertEqual(counts, [0])
-      model.count += 1
-      try await Task.sleep(nanoseconds: 1_000_000)
-      XCTAssertEqual(counts, [0, 1])
 
-      model.otherCount += 1
-      try await Task.sleep(nanoseconds: 1_000_000)
-      XCTAssertEqual(counts, [0, 1])
 
-      _ = observation
-    }
-    func testCancellation() async throws {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       let model = Model()
       var counts: [Int] = []
       let observation = observe {
