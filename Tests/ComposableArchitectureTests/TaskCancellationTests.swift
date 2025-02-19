@@ -1,4 +1,0 @@
-Cancel
-End
-Delete
-Stop
