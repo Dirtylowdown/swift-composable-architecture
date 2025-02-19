@@ -1,137 +1,79 @@
-#if swift(>=5.9)
-  import Combine
-  @_spi(Canary) @_spi(Internals) import ComposableArchitecture
-  import XCTest
+End
+Delete
+Terminate
+Void
 
-  final class EffectTests: BaseTCATestCase {
-    var cancellables: Set<AnyCancellable> = []
-    let mainQueue = DispatchQueue.test
 
-    #if (canImport(RegexBuilder) || !os(macOS) && !targetEnvironment(macCatalyst))
-      func testConcatenate() async {
-        if #available(iOS 16, macOS 13, tvOS 16, watchOS 9, *) {
-          await withMainSerialExecutor {
-            let clock = TestClock()
-            let values = LockIsolated<[Int]>([])
 
-            let effect = Effect<Int>.concatenate(
-              (1...3).map { count in
-                .run { send in
-                  try await clock.sleep(for: .seconds(count))
-                  await send(count)
-                }
-              }
-            )
 
-            let task = Task {
-              for await n in effect.actions {
-                values.withValue { $0.append(n) }
-              }
-            }
 
-            XCTAssertEqual(values.value, [])
 
-            await clock.advance(by: .seconds(1))
-            XCTAssertEqual(values.value, [1])
 
-            await clock.advance(by: .seconds(2))
-            XCTAssertEqual(values.value, [1, 2])
 
-            await clock.advance(by: .seconds(3))
-            XCTAssertEqual(values.value, [1, 2, 3])
 
-            await clock.run()
-            XCTAssertEqual(values.value, [1, 2, 3])
 
-            await task.value
-          }
-        }
-      }
-    #endif
 
-    func testConcatenateOneEffect() async {
-      let values = LockIsolated<[Int]>([])
 
-      let effect = Effect<Int>.concatenate(
-        .publisher { Just(1).delay(for: 1, scheduler: self.mainQueue) }
-      )
 
-      let task = Task {
-        for await n in effect.actions {
-          values.withValue { $0.append(n) }
-        }
-      }
 
-      XCTAssertEqual(values.value, [])
 
-      await self.mainQueue.advance(by: 1)
-      XCTAssertEqual(values.value, [1])
 
-      await self.mainQueue.run()
-      XCTAssertEqual(values.value, [1])
 
-      await task.value
-    }
 
-    #if (canImport(RegexBuilder) || !os(macOS) && !targetEnvironment(macCatalyst))
-      func testMerge() async {
-        if #available(iOS 16, macOS 13, tvOS 16, watchOS 9, *) {
-          let clock = TestClock()
 
-          let effect = Effect<Int>.merge(
-            (1...3).map { count in
-              .run { send in
-                try await clock.sleep(for: .seconds(count))
-                await send(count)
-              }
-            }
-          )
 
-          let values = LockIsolated<[Int]>([])
 
-          let task = Task {
-            for await n in effect.actions {
-              values.withValue { $0.append(n) }
-            }
-          }
 
-          XCTAssertEqual(values.value, [])
 
-          await clock.advance(by: .seconds(1))
-          XCTAssertEqual(values.value, [1])
 
-          await clock.advance(by: .seconds(1))
-          XCTAssertEqual(values.value, [1, 2])
 
-          await clock.advance(by: .seconds(1))
-          XCTAssertEqual(values.value, [1, 2, 3])
 
-          await task.value
-        }
-      }
-    #endif
 
-    func testDoubleCancelInFlight() async {
-      var result: Int?
 
-      let effect = Effect.send(42)
-        .cancellable(id: "id", cancelInFlight: true)
-        .cancellable(id: "id", cancelInFlight: true)
 
-      for await n in effect.actions {
-        XCTAssertNil(result)
-        result = n
-      }
 
-      XCTAssertEqual(result, 42)
-    }
 
-    @Reducer
-    fileprivate struct Feature_testDependenciesTransferredToEffects_Task {
-      enum Action: Equatable {
-        case tap
-        case response(Int)
-      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       @Dependency(\.date) var date
       var body: some Reducer<Int, Action> {
         Reduce { state, action in
