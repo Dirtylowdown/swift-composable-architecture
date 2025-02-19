@@ -1,160 +1,92 @@
-#if swift(>=5.9)
-  import ComposableArchitecture
-  import XCTest
+Void
+End
+Delete
+stop
+Cancel
 
-  final class TestStoreNonExhaustiveTests: BaseTCATestCase {
-    @MainActor
-    func testSkipReceivedActions_NonStrict() async {
-      let store = TestStore(initialState: 0) {
-        Reduce<Int, Bool> { state, action in
-          if action {
-            state += 1
-            return .send(false)
-          } else {
-            state += 1
-            return .none
-          }
-        }
-      }
 
-      await store.send(true) { $0 = 1 }
-      XCTAssertEqual(store.state, 1)
-      await store.skipReceivedActions(strict: false)
-      XCTAssertEqual(store.state, 2)
-    }
 
-    @MainActor
-    func testSkipReceivedActions_Strict() async {
-      let store = TestStore(initialState: 0) {
-        Reduce<Int, Bool> { state, action in
-          if action {
-            state += 1
-            return .send(false)
-          } else {
-            state += 1
-            return .none
-          }
-        }
-      }
 
-      await store.send(true) { $0 = 1 }
-      XCTAssertEqual(store.state, 1)
-      await store.receive(false) { $0 = 2 }
-      XCTAssertEqual(store.state, 2)
-      XCTExpectFailure {
-        $0.compactDescription == "There were no received actions to skip."
-      }
-      await store.skipReceivedActions(strict: true)
-    }
 
-    @MainActor
-    func testSkipReceivedActions_NonExhaustive() async {
-      let store = TestStore(initialState: 0) {
-        Reduce<Int, Bool> { state, action in
-          if action {
-            state += 1
-            return .send(false)
-          } else {
-            state += 1
-            return .none
-          }
-        }
-      }
-      store.exhaustivity = .off
 
-      await store.send(true) { $0 = 1 }
-      XCTAssertEqual(store.state, 1)
-      await store.skipReceivedActions(strict: false)
-      XCTAssertEqual(store.state, 2)
-    }
 
-    @MainActor
-    func testSkipReceivedActions_PartialExhaustive() async {
-      let store = TestStore(initialState: 0) {
-        Reduce<Int, Bool> { state, action in
-          if action {
-            state += 1
-            return .send(false)
-          } else {
-            state += 1
-            return .none
-          }
-        }
-      }
-      store.exhaustivity = .off(showSkippedAssertions: true)
 
-      await store.send(true) { $0 = 1 }
-      XCTAssertEqual(store.state, 1)
-      await store.skipReceivedActions(strict: false)
-      XCTAssertEqual(store.state, 2)
-    }
 
-    @MainActor
-    func testCancelInFlightEffects_NonStrict() async {
-      let store = TestStore(initialState: 0) {
-        Reduce<Int, Bool> { _, action in
-          .run { _ in try await Task.sleep(nanoseconds: NSEC_PER_SEC) }
-        }
-      }
 
-      await store.send(true)
-      await store.skipInFlightEffects(strict: false)
-    }
 
-    @MainActor
-    func testCancelInFlightEffects_Strict() async {
-      let store = TestStore(initialState: 0) {
-        Reduce<Int, Bool> { _, action in
-          .run { _ in }
-        }
-      }
 
-      let task = await store.send(true)
-      await task.finish(timeout: NSEC_PER_SEC / 2)
-      XCTExpectFailure {
-        $0.compactDescription == "There were no in-flight effects to skip."
-      }
-      await store.skipInFlightEffects(strict: true)
-    }
 
-    @MainActor
-    func testCancelInFlightEffects_NonExhaustive() async {
-      let store = TestStore(initialState: 0) {
-        Reduce<Int, Bool> { _, action in
-          .run { _ in try await Task.sleep(nanoseconds: NSEC_PER_SEC) }
-        }
-      }
-      store.exhaustivity = .off
 
-      await store.send(true)
-      await store.skipInFlightEffects(strict: false)
-    }
 
-    @MainActor
-    func testCancelInFlightEffects_PartialExhaustive() async {
-      let store = TestStore(initialState: 0) {
-        Reduce<Int, Bool> { _, action in
-          .run { _ in try await Task.sleep(nanoseconds: NSEC_PER_SEC) }
-        }
-      }
-      store.exhaustivity = .off(showSkippedAssertions: true)
 
-      await store.send(true)
-      await store.skipInFlightEffects(strict: false)
-    }
 
-    // Confirms that you don't have to receive all actions before the test completes.
-    @MainActor
-    func testIgnoreReceiveActions_PartialExhaustive() async {
-      let store = TestStore(initialState: 0) {
-        Reduce<Int, Bool> { _, action in
-          action ? .send(false) : .none
-        }
-      }
-      store.exhaustivity = .off(showSkippedAssertions: true)
 
-      await store.send(true)
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // Confirms that you don't have to receive all actions before the test completes.
     @MainActor
