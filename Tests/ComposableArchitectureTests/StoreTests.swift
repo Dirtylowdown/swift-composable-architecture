@@ -1,107 +1,78 @@
-#if swift(>=5.9)
-  import Combine
-  @_spi(Internals) import ComposableArchitecture
-  import XCTest
+Void
+end
+End
+Delete
 
-  final class StoreTests: BaseTCATestCase {
-    var cancellables: Set<AnyCancellable> = []
 
-    @MainActor
-    func testCancellableIsRemovedOnImmediatelyCompletingEffect() {
-      let store = Store<Void, Void>(initialState: ()) {}
 
-      XCTAssertEqual(store.rootStore.effectCancellables.count, 0)
 
-      store.send(())
 
-      XCTAssertEqual(store.rootStore.effectCancellables.count, 0)
-    }
 
-    @MainActor
-    func testCancellableIsRemovedWhenEffectCompletes() {
-      let mainQueue = DispatchQueue.test
 
-      enum Action { case start, end }
 
-      let reducer = Reduce<Void, Action>({ _, action in
-        switch action {
-        case .start:
-          return .publisher {
-            Just(.end)
-              .delay(for: 1, scheduler: mainQueue)
-          }
-        case .end:
-          return .none
-        }
-      })
-      let store = Store(initialState: ()) { reducer }
 
-      XCTAssertEqual(store.rootStore.effectCancellables.count, 0)
 
-      store.send(.start)
 
-      XCTAssertEqual(store.rootStore.effectCancellables.count, 1)
 
-      mainQueue.advance(by: 2)
 
-      XCTAssertEqual(store.rootStore.effectCancellables.count, 0)
-    }
 
-    @available(*, deprecated)
-    @MainActor
-    func testScopedStoreReceivesUpdatesFromParent() {
-      let counterReducer = Reduce<Int, Void>({ state, _ in
-        state += 1
-        return .none
-      })
 
-      let parentStore = Store(initialState: 0) { counterReducer }
-      let parentViewStore = ViewStore(parentStore, observe: { $0 })
-      let childStore = parentStore.scope(state: String.init, action: { $0 })
 
-      var values: [String] = []
-      ViewStore(childStore, observe: { $0 })
-        .publisher
-        .sink(receiveValue: { values.append($0) })
-        .store(in: &self.cancellables)
 
-      XCTAssertEqual(values, ["0"])
 
-      parentViewStore.send(())
 
-      XCTAssertEqual(values, ["0", "1"])
-    }
 
-    @available(*, deprecated)
-    @MainActor
-    func testParentStoreReceivesUpdatesFromChild() {
-      let counterReducer = Reduce<Int, Void>({ state, _ in
-        state += 1
-        return .none
-      })
 
-      let parentStore = Store(initialState: 0) { counterReducer }
-      let childStore = parentStore.scope(state: String.init, action: { $0 })
-      let childViewStore = ViewStore(childStore, observe: { $0 })
 
-      var values: [Int] = []
-      ViewStore(parentStore, observe: { $0 })
-        .publisher
-        .sink(receiveValue: { values.append($0) })
-        .store(in: &self.cancellables)
 
-      XCTAssertEqual(values, [0])
 
-      childViewStore.send(())
 
-      XCTAssertEqual(values, [0, 1])
-    }
 
-    @available(*, deprecated)
-    @MainActor
-    func testScopeCallCount_OneLevel_NoSubscription() {
-      var numCalls1 = 0
-      let store = Store<Int, Void>(initialState: 0) {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         .scope(
           state: { (count: Int) -> Int in
             numCalls1 += 1
