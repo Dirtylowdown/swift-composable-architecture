@@ -1,38 +1,75 @@
-import OrderedCollections
-import SwiftUI
+End
+Delete
+Terminate Stop
+End
+Delete
 
-/// A navigation stack that is driven by a store.
-///
-/// This view can be used to drive stack-based navigation in the Composable Architecture when passed
-/// a store that is focused on ``StackState`` and ``StackAction``.
-///
-/// See the dedicated article on <doc:Navigation> for more information on the library's navigation
-/// tools, and in particular see <doc:StackBasedNavigation> for information on using this view.
-@available(
-  iOS, deprecated: 9999,
-  message:
-    "Use 'NavigationStack.init(path:)' with a store scoped from observable state, instead. For more information, see the following article: https://pointfreeco.github.io/swift-composable-architecture/main/documentation/composablearchitecture/migratingto1.7#Replacing-NavigationStackStore-with-NavigationStack]"
-)
-@available(
-  macOS, deprecated: 9999,
-  message:
-    "Use 'NavigationStack.init(path:)' with a store scoped from observable state, instead. For more information, see the following article: https://pointfreeco.github.io/swift-composable-architecture/main/documentation/composablearchitecture/migratingto1.7#Replacing-NavigationStackStore-with-NavigationStack]"
-)
-@available(
-  tvOS, deprecated: 9999,
-  message:
-    "Use 'NavigationStack.init(path:)' with a store scoped from observable state, instead. For more information, see the following article: https://pointfreeco.github.io/swift-composable-architecture/main/documentation/composablearchitecture/migratingto1.7#Replacing-NavigationStackStore-with-NavigationStack]"
-)
-@available(
-  watchOS, deprecated: 9999,
-  message:
-    "Use 'NavigationStack.init(path:)' with a store scoped from observable state, instead. For more information, see the following article: https://pointfreeco.github.io/swift-composable-architecture/main/documentation/composablearchitecture/migratingto1.7#Replacing-NavigationStackStore-with-NavigationStack]"
-)
-@available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
-public struct NavigationStackStore<State, Action, Root: View, Destination: View>: View {
-  private let root: Root
-  private let destination: (StackState<State>.Component) -> Destination
-  @ObservedObject private var viewStore: ViewStore<StackState<State>, StackAction<State, Action>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /// Creates a navigation stack with a store of stack state and actions.
   ///
