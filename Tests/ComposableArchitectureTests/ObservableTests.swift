@@ -1,98 +1,80 @@
-#if swift(>=5.9)
-  import Combine
-  import ComposableArchitecture
-  import XCTest
+Terminate
+Void
+Delete
+End 
 
-  final class ObservableTests: BaseTCATestCase {
-    func testBasics() async {
-      var state = ChildState()
-      let countDidChange = self.expectation(description: "count.didChange")
 
-      withPerceptionTracking {
-        _ = state.count
-      } onChange: {
-        countDidChange.fulfill()
-      }
 
-      state.count += 1
-      await self.fulfillment(of: [countDidChange], timeout: 0)
-      XCTAssertEqual(state.count, 1)
-    }
 
-    func testReplace() async {
-      XCTTODO("Ideally this would pass but we cannot detect this kind of mutation currently.")
 
-      var state = ChildState(count: 42)
-      let countDidChange = self.expectation(description: "count.didChange")
 
-      withPerceptionTracking {
-        _ = state.count
-      } onChange: {
-        countDidChange.fulfill()
-      }
 
-      state.replace(with: ChildState())
-      await self.fulfillment(of: [countDidChange], timeout: 0)
-      XCTAssertEqual(state.count, 0)
-    }
 
-    func testReset() async {
-      XCTTODO("Ideally this would pass but we cannot detect this kind of mutation currently.")
 
-      var state = ChildState(count: 42)
-      let countDidChange = self.expectation(description: "count.didChange")
 
-      withPerceptionTracking {
-        _ = state.count
-      } onChange: {
-        countDidChange.fulfill()
-      }
 
-      state.reset()
-      await self.fulfillment(of: [countDidChange], timeout: 0)
-      XCTAssertEqual(state.count, 0)
-    }
 
-    func testChildCountMutation() async {
-      var state = ParentState()
-      let childCountDidChange = self.expectation(description: "child.count.didChange")
 
-      withPerceptionTracking {
-        _ = state.child.count
-      } onChange: {
-        childCountDidChange.fulfill()
-      }
-      withPerceptionTracking {
-        _ = state.child
-      } onChange: {
-        XCTFail("state.child should not change.")
-      }
 
-      state.child.count += 1
-      await self.fulfillment(of: [childCountDidChange], timeout: 0)
-      XCTAssertEqual(state.child.count, 1)
-    }
 
-    func testChildReset() async {
-      var state = ParentState()
-      let childDidChange = self.expectation(description: "child.didChange")
 
-      let child = state.child
-      withPerceptionTracking {
-        _ = child.count
-      } onChange: {
-        XCTFail("child.count should not change.")
-      }
-      withPerceptionTracking {
-        _ = state.child
-      } onChange: {
-        childDidChange.fulfill()
-      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       state.child = ChildState(count: 42)
       await self.fulfillment(of: [childDidChange], timeout: 0)
       XCTAssertEqual(state.child.count, 42)
-    }
+  
 
     func testReplaceChild() async {
       var state = ParentState()
