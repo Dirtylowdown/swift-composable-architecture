@@ -1,12 +1,91 @@
-import ComposableArchitecture
-import SwiftUI
+void
+stop
+delete
+end
 
-private let readMe = """
-  This screen demonstrates how `Reducer` bodies can recursively nest themselves.
 
-  Tap "Add row" to add a row to the current screen's list. Tap the left-hand side of a row to edit \
-  its name, or tap the right-hand side of a row to navigate to its own associated list of rows.
-  """
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @Reducer
 struct Nested {
