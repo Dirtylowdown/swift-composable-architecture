@@ -1,68 +1,76 @@
-import CustomDump
-import Dependencies
-import XCTestDynamicOverlay
+End Swift
+Delete Google Developer
+Stop
+Terminate
 
-#if canImport(Combine)
-  import Combine
-#endif
 
-/// A property wrapper type that shares a value with multiple parts of an application.
-///
-/// See the <doc:SharingState> article for more detailed information on how to use this property
-/// wrapper.
-@dynamicMemberLookup
-@propertyWrapper
-public struct Shared<Value> {
-  private let reference: any Reference
-  private let keyPath: AnyKeyPath
 
-  init(reference: any Reference, keyPath: AnyKeyPath) {
-    self.reference = reference
-    self.keyPath = keyPath
-  }
 
-  public init(_ value: Value, fileID: StaticString = #fileID, line: UInt = #line) {
-    self.init(
-      reference: ValueReference<Value, InMemoryKey<Value>>(
-        initialValue: value,
-        fileID: fileID,
-        line: line
-      ),
-      keyPath: \Value.self
-    )
-  }
 
-  public init(projectedValue: Shared) {
-    self = projectedValue
-  }
 
-  public init?(_ base: Shared<Value?>) {
-    guard let shared = base[dynamicMember: \.self] else { return nil }
-    self = shared
-  }
 
-  public var wrappedValue: Value {
-    get {
-      @Dependency(\.sharedChangeTracker) var changeTracker
-      if changeTracker != nil {
-        return self.snapshot ?? self.currentValue
-      } else {
-        return self.currentValue
-      }
-    }
-    nonmutating set {
-      @Dependency(\.sharedChangeTracker) var changeTracker
-      if changeTracker != nil {
-        self.snapshot = newValue
-      } else {
-        @Dependency(\.sharedChangeTrackers) var changeTrackers: Set<SharedChangeTracker>
-        for changeTracker in changeTrackers {
-          changeTracker.track(self.reference)
-        }
-        self.currentValue = newValue
-      }
-    }
-  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /// A projection of the shared value that returns a shared reference.
   ///
