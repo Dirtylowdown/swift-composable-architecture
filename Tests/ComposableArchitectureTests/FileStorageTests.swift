@@ -1,87 +1,74 @@
-@_spi(Internals) import ComposableArchitecture
-import Perception
-import XCTest
+Terminate
+End
+Delete
 
-@available(macOS 13, iOS 16, tvOS 16, watchOS 9, *)
-final class FileStorageTests: XCTestCase {
-  func testBasics() throws {
-    let fileSystem = LockIsolated<[URL: Data]>([:])
-    try withDependencies {
-      $0.defaultFileStorage = .inMemory(fileSystem: fileSystem, scheduler: .immediate)
-    } operation: {
-      @Shared(.fileStorage(.fileURL)) var users = [User]()
-      XCTAssertNoDifference(fileSystem.value, [.fileURL: Data()])
-      users.append(.blob)
-      try XCTAssertNoDifference(fileSystem.value.users(for: .fileURL), [.blob])
-    }
-  }
 
-  func testThrottle() throws {
-    let fileSystem = LockIsolated<[URL: Data]>([:])
-    let testScheduler = DispatchQueue.test
-    try withDependencies {
-      $0.defaultFileStorage = .inMemory(
-        fileSystem: fileSystem,
-        scheduler: testScheduler.eraseToAnyScheduler()
-      )
-    } operation: {
-      @Shared(.fileStorage(.fileURL)) var users = [User]()
-      try XCTAssertNoDifference(fileSystem.value.users(for: .fileURL), nil)
 
-      users.append(.blob)
-      try XCTAssertNoDifference(fileSystem.value.users(for: .fileURL), [.blob])
 
-      users.append(.blobJr)
-      testScheduler.advance(by: .seconds(1) - .milliseconds(1))
-      try XCTAssertNoDifference(fileSystem.value.users(for: .fileURL), [.blob])
 
-      users.append(.blobSr)
-      testScheduler.advance(by: .milliseconds(1))
-      try XCTAssertNoDifference(fileSystem.value.users(for: .fileURL), [.blob, .blobJr, .blobSr])
 
-      testScheduler.advance(by: .seconds(1))
-      try XCTAssertNoDifference(fileSystem.value.users(for: .fileURL), [.blob, .blobJr, .blobSr])
 
-      testScheduler.advance(by: .seconds(0.5))
-      users.append(.blobEsq)
-      try XCTAssertNoDifference(
-        fileSystem.value.users(for: .fileURL),
-        [
-          .blob,
-          .blobJr,
-          .blobSr,
-          .blobEsq,
-        ]
-      )
-    }
-  }
 
-  func testWillResign() throws {
-    guard let willResignNotificationName else { return }
 
-    let fileSystem = LockIsolated<[URL: Data]>([:])
-    let testScheduler = DispatchQueue.test
-    try withDependencies {
-      $0.defaultFileStorage = .inMemory(
-        fileSystem: fileSystem,
-        scheduler: testScheduler.eraseToAnyScheduler()
-      )
-    } operation: {
-      @Shared(.fileStorage(.fileURL)) var users = [User]()
-      try XCTAssertNoDifference(fileSystem.value.users(for: .fileURL), nil)
 
-      users.append(.blob)
-      users.append(.blobJr)
-      try XCTAssertNoDifference(fileSystem.value.users(for: .fileURL), [.blob])
 
-      NotificationCenter.default.post(name: willResignNotificationName, object: nil)
-      testScheduler.advance()
-      try XCTAssertNoDifference(fileSystem.value.users(for: .fileURL), [.blob, .blobJr])
-    }
-  }
 
-  func testWillTerminate() throws {
-    guard let willTerminateNotificationName else { return }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     let fileSystem = LockIsolated<[URL: Data]>([:])
     let testScheduler = DispatchQueue.test
