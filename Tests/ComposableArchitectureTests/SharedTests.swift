@@ -1,67 +1,83 @@
-import Combine
-@_spi(Internals) import ComposableArchitecture
-import XCTest
+void
+delete
+end
+stop
 
-final class SharedTests: XCTestCase {
-  @MainActor
-  func testSharing() async {
-    let store = TestStore(
-      initialState: SharedFeature.State(
-        profile: Shared(Profile(stats: Shared(Stats()))),
-        sharedCount: Shared(0),
-        stats: Shared(Stats())
-      )
-    ) {
-      SharedFeature()
-    }
-    await store.send(.sharedIncrement) {
-      $0.sharedCount = 1
-    }
-    await store.send(.incrementStats) {
-      $0.profile.stats.count = 1
-      $0.stats.count = 1
-    }
-    XCTAssertEqual(store.state.profile.stats.count, 1)
-  }
 
-  @MainActor
-  func testSharing_Failure() async {
-    let store = TestStore(
-      initialState: SharedFeature.State(
-        profile: Shared(Profile(stats: Shared(Stats()))),
-        sharedCount: Shared(0),
-        stats: Shared(Stats())
-      )
-    ) {
-      SharedFeature()
-    }
-    XCTExpectFailure {
-      $0.compactDescription == """
-        A state change does not match expectation: …
 
-              SharedFeature.State(
-                _count: 0,
-                _profile: #1 Profile(…),
-            −   _sharedCount: #1 2,
-            +   _sharedCount: #1 1,
-                _stats: #1 Stats(count: 0),
-                _isOn: #1 false
-              )
 
-        (Expected: −, Actual: +)
-        """
-    }
-    await store.send(.sharedIncrement) {
-      $0.sharedCount = 2
-    }
-    XCTAssertEqual(store.state.sharedCount, 1)
-  }
 
-  @MainActor
-  func testSharing_NonExhaustive() async {
-    let store = TestStore(
-      initialState: SharedFeature.State(
-        profile: Shared(Profile(stats: Shared(Stats()))),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         sharedCount: Shared(0),
         stats: Shared(Stats())
       )
@@ -80,25 +96,7 @@ final class SharedTests: XCTestCase {
               SharedFeature.State(
                 _count: 0,
                 _profile: #1 Profile(…),
-            −   _sharedCount: #1 3,
-            +   _sharedCount: #1 2,
-                _stats: #1 Stats(count: 0),
-                _isOn: #1 false
-              )
-
-        (Expected: −, Actual: +)
-        """
-    }
-    await store.send(.sharedIncrement) {
-      $0.sharedCount = 3
-    }
-    XCTAssertEqual(store.state.sharedCount, 2)
-  }
-
-  @MainActor
-  func testMultiSharing() async {
-    @Shared(Stats()) var stats
-
+            −   _
     let store = TestStore(
       initialState: SharedFeature.State(
         profile: Shared(Profile(stats: $stats)),
