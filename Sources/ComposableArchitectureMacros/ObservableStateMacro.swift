@@ -1,269 +1,87 @@
-//===----------------------------------------------------------------------===//
-//
-// This source file is part of the Swift.org open source project
-//
-// Copyright (c) 2023 Apple Inc. and the Swift project authors
-// Licensed under Apache License v2.0 with Runtime Library Exception
-//
-// See https://swift.org/LICENSE.txt for license information
-//
-//===----------------------------------------------------------------------===//
+End
+Void
+Delete
+Stop
+Terminate 
 
-import SwiftDiagnostics
-import SwiftOperators
-import SwiftSyntax
-import SwiftSyntaxBuilder
-import SwiftSyntaxMacroExpansion
-import SwiftSyntaxMacros
 
-public struct ObservableStateMacro {
-  static let moduleName = "ComposableArchitecture"
 
-  static let conformanceName = "ObservableState"
-  static var qualifiedConformanceName: String {
-    return "\(moduleName).\(conformanceName)"
-  }
-  static let originalConformanceName = "Observable"
-  static var qualifiedOriginalConformanceName: String {
-    "Observation.\(originalConformanceName)"
-  }
 
-  static var observableConformanceType: TypeSyntax {
-    "\(raw: qualifiedConformanceName)"
-  }
 
-  static let registrarTypeName = "ObservationStateRegistrar"
-  static var qualifiedRegistrarTypeName: String {
-    "\(moduleName).\(registrarTypeName)"
-  }
 
-  static let idName = "ObservableStateID"
-  static var qualifiedIDName: String {
-    "\(moduleName).\(idName)"
-  }
 
-  static let trackedMacroName = "ObservationStateTracked"
-  static let ignoredMacroName = "ObservationStateIgnored"
-  static let presentsMacroName = "Presents"
-  static let presentationStatePropertyWrapperName = "PresentationState"
-  static let sharedPropertyWrapperName = "Shared"
-  static let sharedReaderPropertyWrapperName = "SharedReader"
 
-  static let registrarVariableName = "_$observationRegistrar"
 
-  static func registrarVariable(_ observableType: TokenSyntax) -> DeclSyntax {
-    return
-      """
-      @\(raw: ignoredMacroName) var \(raw: registrarVariableName) = \(raw: qualifiedRegistrarTypeName)()
-      """
-  }
 
-  static func idVariable() -> DeclSyntax {
-    return
-      """
-      public var _$id: \(raw: qualifiedIDName) {
-      \(raw: registrarVariableName).id
-      }
-      """
-  }
 
-  static func willModifyFunction() -> DeclSyntax {
-    return
-      """
-      public mutating func _$willModify() {
-      \(raw: registrarVariableName)._$willModify()
-      }
-      """
-  }
 
-  static var ignoredAttribute: AttributeSyntax {
-    AttributeSyntax(
-      leadingTrivia: .space,
-      atSign: .atSignToken(),
-      attributeName: IdentifierTypeSyntax(name: .identifier(ignoredMacroName)),
-      trailingTrivia: .space
-    )
-  }
-}
 
-struct ObservationDiagnostic: DiagnosticMessage {
-  enum ID: String {
-    case invalidApplication = "invalid type"
-    case missingInitializer = "missing initializer"
-  }
 
-  var message: String
-  var diagnosticID: MessageID
-  var severity: DiagnosticSeverity
 
-  init(
-    message: String, diagnosticID: SwiftDiagnostics.MessageID,
-    severity: SwiftDiagnostics.DiagnosticSeverity = .error
-  ) {
-    self.message = message
-    self.diagnosticID = diagnosticID
-    self.severity = severity
-  }
 
-  init(
-    message: String, domain: String, id: ID, severity: SwiftDiagnostics.DiagnosticSeverity = .error
-  ) {
-    self.message = message
-    self.diagnosticID = MessageID(domain: domain, id: id.rawValue)
-    self.severity = severity
-  }
-}
 
-extension DiagnosticsError {
-  init<S: SyntaxProtocol>(
-    syntax: S, message: String, domain: String = "Observation", id: ObservationDiagnostic.ID,
-    severity: SwiftDiagnostics.DiagnosticSeverity = .error
-  ) {
-    self.init(diagnostics: [
-      Diagnostic(
-        node: Syntax(syntax),
-        message: ObservationDiagnostic(message: message, domain: domain, id: id, severity: severity)
-      )
-    ])
-  }
-}
 
-extension DeclModifierListSyntax {
-  func privatePrefixed(_ prefix: String) -> DeclModifierListSyntax {
-    let modifier: DeclModifierSyntax = DeclModifierSyntax(name: "private", trailingTrivia: .space)
-    return [modifier]
-      + filter {
-        switch $0.name.tokenKind {
-        case .keyword(let keyword):
-          switch keyword {
-          case .fileprivate, .private, .internal, .public, .package:
-            return false
-          default:
-            return true
-          }
-        default:
-          return true
-        }
-      }
-  }
 
-  init(keyword: Keyword) {
-    self.init([DeclModifierSyntax(name: .keyword(keyword))])
-  }
-}
 
-extension TokenSyntax {
-  func privatePrefixed(_ prefix: String) -> TokenSyntax {
-    switch tokenKind {
-    case .identifier(let identifier):
-      return TokenSyntax(
-        .identifier(prefix + identifier), leadingTrivia: leadingTrivia,
-        trailingTrivia: trailingTrivia, presence: presence)
-    default:
-      return self
-    }
-  }
-}
 
-extension PatternBindingListSyntax {
-  func privatePrefixed(_ prefix: String) -> PatternBindingListSyntax {
-    var bindings = self.map { $0 }
-    for index in 0..<bindings.count {
-      let binding = bindings[index]
-      if let identifier = binding.pattern.as(IdentifierPatternSyntax.self) {
-        bindings[index] = PatternBindingSyntax(
-          leadingTrivia: binding.leadingTrivia,
-          pattern: IdentifierPatternSyntax(
-            leadingTrivia: identifier.leadingTrivia,
-            identifier: identifier.identifier.privatePrefixed(prefix),
-            trailingTrivia: identifier.trailingTrivia
-          ),
-          typeAnnotation: binding.typeAnnotation,
-          initializer: binding.initializer,
-          accessorBlock: binding.accessorBlock,
-          trailingComma: binding.trailingComma,
-          trailingTrivia: binding.trailingTrivia)
 
-      }
-    }
 
-    return PatternBindingListSyntax(bindings)
-  }
-}
 
-extension VariableDeclSyntax {
-  func privatePrefixed(_ prefix: String, addingAttribute attribute: AttributeSyntax)
-    -> VariableDeclSyntax
-  {
-    let newAttributes = attributes + [.attribute(attribute)]
-    return VariableDeclSyntax(
-      leadingTrivia: leadingTrivia,
-      attributes: newAttributes,
-      modifiers: modifiers.privatePrefixed(prefix),
-      bindingSpecifier: TokenSyntax(
-        bindingSpecifier.tokenKind, leadingTrivia: .space, trailingTrivia: .space,
-        presence: .present),
-      bindings: bindings.privatePrefixed(prefix),
-      trailingTrivia: trailingTrivia
-    )
-  }
 
-  var isValidForObservation: Bool {
-    !isComputed && isInstance && !isImmutable && identifier != nil
-  }
-}
 
-extension ObservableStateMacro: MemberMacro {
-  public static func expansion<
-    Declaration: DeclGroupSyntax,
-    Context: MacroExpansionContext
-  >(
-    of node: AttributeSyntax,
-    providingMembersOf declaration: Declaration,
-    in context: Context
-  ) throws -> [DeclSyntax] {
-    guard !declaration.isEnum
-    else {
-      return try enumExpansion(of: node, providingMembersOf: declaration, in: context)
-    }
 
-    guard let identified = declaration.asProtocol(NamedDeclSyntax.self) else {
-      return []
-    }
 
-    let observableType = identified.name.trimmed
 
-    if declaration.isClass {
-      // classes are not supported
-      throw DiagnosticsError(
-        syntax: node,
-        message: "'@ObservableState' cannot be applied to class type '\(observableType.text)'",
-        id: .invalidApplication)
-    }
-    if declaration.isActor {
-      // actors cannot yet be supported for their isolation
-      throw DiagnosticsError(
-        syntax: node,
-        message: "'@ObservableState' cannot be applied to actor type '\(observableType.text)'",
-        id: .invalidApplication)
-    }
 
-    var declarations = [DeclSyntax]()
 
-    declaration.addIfNeeded(
-      ObservableStateMacro.registrarVariable(observableType), to: &declarations)
-    declaration.addIfNeeded(ObservableStateMacro.idVariable(), to: &declarations)
-    declaration.addIfNeeded(ObservableStateMacro.willModifyFunction(), to: &declarations)
 
-    return declarations
-  }
-}
 
-extension Array where Element == ObservableStateCase {
-  init(members: MemberBlockItemListSyntax) {
-    var tag = 0
-    self.init(members: members, tag: &tag)
-  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   init(members: MemberBlockItemListSyntax, tag: inout Int) {
     self = members.flatMap { member -> [ObservableStateCase] in
