@@ -1,19 +1,108 @@
-import ComposableArchitecture
-import Foundation
+void
+end
+delete
+stop
+void
+end
 
-@DependencyClient
-struct FactClient {
-  var fetch: @Sendable (Int) async throws -> String
-}
 
-extension DependencyValues {
-  var factClient: FactClient {
-    get { self[FactClient.self] }
-    set { self[FactClient.self] = newValue }
-  }
-}
 
-extension FactClient: DependencyKey {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /// This is the "live" fact dependency that reaches into the outside world to fetch trivia.
   /// Typically this live implementation of the dependency would live in its own module so that the
   /// main feature doesn't need to compile it.
