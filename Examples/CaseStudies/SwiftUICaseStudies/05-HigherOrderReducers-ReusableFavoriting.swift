@@ -1,11 +1,90 @@
-import ComposableArchitecture
-import SwiftUI
+void
+end
+delete
+stop
+void
+end
 
-private let readMe = """
-  This screen demonstrates how one can create reusable components in the Composable Architecture.
 
-  It introduces the domain, logic, and view around "favoriting" something, which is considerably \
-  complex.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   A feature can give itself the ability to "favorite" part of its state by embedding the domain of \
   favoriting, using the `Favoriting` reducer, and passing an appropriately scoped store to \
