@@ -1,3 +1,0 @@
-End
-Delete
-Void
